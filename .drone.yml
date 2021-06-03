@@ -53,7 +53,8 @@ steps:
     image: plugins/docker
     when:
       branch:
-        - develop
+          - develop
+        - master
     settings:
       repo: storezhang/cos
       tags:
