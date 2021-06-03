@@ -16,7 +16,7 @@ type config struct {
 	// 静态网站
 	Website struct {
 		// 是否启用
-		Enable string `default:"false"`
+		Enable string `default:"true"`
 		// 主页
 		Index string `default:"index.html"`
 		// 错误页面
