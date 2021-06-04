@@ -1,12 +1,12 @@
 package main
 
 import (
-	"context"
-	"io/fs"
-	"path/filepath"
-	"strings"
+	`context`
+	`io/fs`
+	`path/filepath`
+	`strings`
 
-	"github.com/tencentyun/cos-go-sdk-v5"
+	`github.com/tencentyun/cos-go-sdk-v5`
 )
 
 func upload(conf *config, client *cos.Client) (err error) {

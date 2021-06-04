@@ -1,12 +1,12 @@
 package main
 
 import (
-	"crypto/tls"
-	"net/http"
-	"net/url"
+	`crypto/tls`
+	`net/http`
+	`net/url`
 
-	"github.com/mcuadros/go-defaults"
-	"github.com/tencentyun/cos-go-sdk-v5"
+	`github.com/mcuadros/go-defaults`
+	`github.com/tencentyun/cos-go-sdk-v5`
 )
 
 func main() {

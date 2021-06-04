@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/tencentyun/cos-go-sdk-v5"
+	`github.com/tencentyun/cos-go-sdk-v5`
 )
 
 func clear(_ *config, _ *cos.Client) (err error) {

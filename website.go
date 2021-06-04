@@ -1,11 +1,11 @@
 package main
 
 import (
-	"context"
-	"net/http"
-	"strconv"
+	`context`
+	`net/http`
+	`strconv`
 
-	"github.com/tencentyun/cos-go-sdk-v5"
+	`github.com/tencentyun/cos-go-sdk-v5`
 )
 
 func website(conf *config, client *cos.Client) (err error) {

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
-	"os"
+	`fmt`
+	`os`
 )
 
 // 兼容Drone插件和普通使用
