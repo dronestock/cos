@@ -2,6 +2,8 @@ package main
 
 import (
 	`crypto/tls`
+	`encoding/json`
+	`fmt`
 	`net/http`
 	`net/url`
 
@@ -23,6 +25,7 @@ func main() {
 	conf.Website.Index = env("WEBSITE_INDEX")
 	conf.Website.Error = env("WEBSITE_ERROR")
 	defaults.SetDefaults(conf)
+	fmt.Println(json.Marshal(conf))
 
 	var bucketUrl *url.URL
 	if bucketUrl, err = url.Parse(conf.BaseUrl); nil != err {
