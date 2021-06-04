@@ -19,7 +19,11 @@ func upload(conf *config, client *cos.Client) (err error) {
 		if key, err = filepath.Rel(conf.Folder, path); nil != err {
 			return
 		}
-		key = strings.Join(strings.Split(key, string(filepath.Separator)), conf.Separator)
+		paths := strings.Split(key, string(filepath.Separator))
+		if "" != conf.Base {
+			paths = append([]string{conf.Base}, paths...)
+		}
+		key = strings.Join(paths, conf.Separator)
 
 		_, _, err = client.Object.MultiUpload(context.Background(), key, path, &cos.MultiUploadOptions{
 			CheckPoint:         true,

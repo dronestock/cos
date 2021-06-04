@@ -13,6 +13,8 @@ type config struct {
 	Separator string `default:"/"`
 	// 是否清空存储桶
 	Clear string `default:"false"`
+	// 基础路径，所有文件上传都会在这上面加上基础路径
+	Base string
 	// 静态网站
 	Website struct {
 		// 是否启用

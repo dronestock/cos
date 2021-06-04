@@ -18,6 +18,7 @@ func main() {
 	conf.Folder = env("FOLDER")
 	conf.BaseUrl = env("BASE_URL")
 	conf.Clear = env("CLEAR")
+	conf.Clear = env("BASE")
 	conf.Website.Enable = env("WEBSITE_ENABLE")
 	conf.Website.Index = env("WEBSITE_INDEX")
 	conf.Website.Error = env("WEBSITE_ERROR")
