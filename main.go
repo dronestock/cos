@@ -25,7 +25,8 @@ func main() {
 	conf.Website.Index = env("WEBSITE_INDEX")
 	conf.Website.Error = env("WEBSITE_ERROR")
 	defaults.SetDefaults(conf)
-	fmt.Println(json.Marshal(conf))
+	data, _ := json.Marshal(conf)
+	fmt.Println(string(data))
 
 	var bucketUrl *url.URL
 	if bucketUrl, err = url.Parse(conf.BaseUrl); nil != err {
