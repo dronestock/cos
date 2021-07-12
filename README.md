@@ -11,5 +11,5 @@
 只能使用Docker来运行插件
 
 ``` shell
-docker run
+docker run storezhang/drone-plugin-git
 ```
