@@ -26,4 +26,3 @@ node_modules/
 
 # 自动生成的中间文件
 go.sum
-wire_gen.go
