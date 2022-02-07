@@ -3,23 +3,21 @@ package main
 import (
 	`context`
 	`net/http`
-	`strconv`
 
 	`github.com/tencentyun/cos-go-sdk-v5`
 )
 
 func (p *plugin) website() (undo bool, err error) {
-	var enable bool
-	if enable, err = strconv.ParseBool(conf.Website.Enable); nil != err || !enable {
+	if undo = p.websiteEnabled(); undo {
 		return
 	}
 
-	if _, _, err = client.Bucket.GetWebsite(context.Background()); nil != err {
+	if _, _, err = p.cos.Bucket.GetWebsite(context.Background()); nil != err {
 		if http.StatusNotFound == err.(*cos.ErrorResponse).Response.StatusCode {
-			_, err = client.Bucket.PutWebsite(context.Background(), &cos.BucketPutWebsiteOptions{
-				Index: conf.Website.Index,
+			_, err = p.cos.Bucket.PutWebsite(context.Background(), &cos.BucketPutWebsiteOptions{
+				Index: p.WebsiteIndex,
 				Error: &cos.ErrorDocument{
-					Key: conf.Website.Error,
+					Key: p.WebsiteError,
 				},
 			})
 		}

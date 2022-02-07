@@ -4,6 +4,7 @@ import (
 	`crypto/tls`
 	`net/http`
 	`net/url`
+	`strings`
 
 	`github.com/dronestock/drone`
 	`github.com/storezhang/gox`
@@ -18,9 +19,9 @@ type plugin struct {
 	Folder string `default:"${PLUGIN_Folder=${Folder=.}}"`
 
 	// 授权，类型于用户名
-	SecretId string `default:"${PLUGIN_SECRET_ID=${SECRET_ID}}" validate:"required"`
+	SecretId string `default:"${PLUGIN_SECRET_ID=${SECRET_ID}}" validate:"required,len=36"`
 	// 授权，类型于密码
-	SecretKey string `default:"${PLUGIN_SECRET_KEY=${SECRET_KEY}}" validate:"required"`
+	SecretKey string `default:"${PLUGIN_SECRET_KEY=${SECRET_KEY}}" validate:"required,len=33"`
 	// 存储桶地址
 	BaseUrl string `default:"${PLUGIN_BASE_URL=${BASE_URL}}" validate:"required,url"`
 
@@ -33,11 +34,9 @@ type plugin struct {
 	// 路径后缀，所有文件上传都会在这上面加上后缀
 	Suffix string `default:"${PLUGIN_SUFFIX=${SUFFIX}}"`
 
-	// 是否启用静态网站
-	WebsiteEnabled bool `default:"${PLUGIN_WEBSITE_ENABLED=${WEBSITE_ENABLED=true}}"`
-	// 主页
+	// 静态网站主页
 	WebsiteIndex string `default:"${PLUGIN_WEBSITE_INDEX=${WEBSITE_INDEX=index.html}}"`
-	// 错误页
+	// 静态网站错误页
 	WebsiteError string `default:"${PLUGIN_WEBSITE_ERROR=${WEBSITE_ERROR=error.html}}"`
 
 	cos *cos.Client
@@ -80,5 +79,20 @@ func (p *plugin) Steps() []*drone.Step {
 func (p *plugin) Fields() gox.Fields {
 	return []gox.Field{
 		field.String(`folder`, p.Folder),
+
+		field.String(`secret.id`, p.SecretId),
+		field.String(`base.url`, p.BaseUrl),
+
+		field.String(`separator`, p.Separator),
+		field.Bool(`clear`, p.Clear),
+		field.String(`prefix`, p.Prefix),
+		field.String(`suffix`, p.Suffix),
+
+		field.String(`website.index`, p.WebsiteIndex),
+		field.String(`website.error`, p.WebsiteError),
 	}
+}
+
+func (p *plugin) websiteEnabled() bool {
+	return `` == strings.TrimSpace(p.WebsiteIndex) && `` == strings.TrimSpace(p.WebsiteError)
 }
