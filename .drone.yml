@@ -23,7 +23,6 @@ steps:
     pull: always
     settings:
       output: cos
-      debug: true
 
   - name: 推送Docker镜像到中央库
     image: dronestock/docker
