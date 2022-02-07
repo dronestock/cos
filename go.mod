@@ -1,4 +1,4 @@
-module github.com/dronestock/maven
+module github.com/dronestock/cos
 
 go 1.17
 
