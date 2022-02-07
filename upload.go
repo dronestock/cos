@@ -9,7 +9,7 @@ import (
 	`github.com/tencentyun/cos-go-sdk-v5`
 )
 
-func upload(conf *config, client *cos.Client) (err error) {
+func (p *plugin) upload() (undo bool, err error) {
 	return filepath.WalkDir(conf.Folder, func(path string, dir fs.DirEntry, _ error) (err error) {
 		if nil == dir || dir.IsDir() {
 			return

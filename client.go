@@ -8,7 +8,7 @@ import (
 	`github.com/tencentyun/cos-go-sdk-v5`
 )
 
-func (p *plugin) website() (undo bool, err error) {
+func (p *plugin) client() (undo bool, err error) {
 	var enable bool
 	if enable, err = strconv.ParseBool(conf.Website.Enable); nil != err || !enable {
 		return

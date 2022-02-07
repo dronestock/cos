@@ -1,15 +1,20 @@
-# 腾讯云对象存储
+# maven
 
-腾讯云对象存储插件，支持
+Drone持续集成Maven插件，功能
 
-- 上传文件
-- 静态网站
-- Base路径
+- 测试
+- 打包
+- 发布
 
-## 使用方式
+## 使用
 
-只能使用Docker来运行插件
+非常简单，只需要在`.drone.yml`里增加配置
 
-``` shell
-docker run storezhang/drone-plugin-git
+```yaml
+- name: 发布到Maven仓库
+  image: dronestock/maven
+  setttings:
+    username: xxx
+    password: xxx
+    token: xxx
 ```

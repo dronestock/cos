@@ -13,59 +13,32 @@ trigger:
       - pull_request
 
 
-environment:
-  GOPROXY: https://goproxy.cn
-
-
 steps:
   - name: 拉代码
-    image: plugins/git
-    pull: if-not-exists
-
-  - name: 清理依赖
-    image: golang
-    pull: if-not-exists
-    volumes:
-      - name: deps
-        path: /go
-    commands:
-      - go mod tidy
-
-  - name: 代码检查
-    image: golangci/golangci-lint
-    pull: if-not-exists
-    volumes:
-      - name: deps
-        path: /go
-    commands:
-      - golangci-lint run --timeout 10m -E goerr113 -E nlreturn -E bodyclose -E rowserrcheck -E gosec -E unconvert -E misspell -E lll
+    image: dronestock/git
+    pull: always
 
   - name: 编译
-    image: golang
-    pull: if-not-exists
-    volumes:
-      - name: deps
-        path: /go
-    commands:
-      - CGO_ENABLED=0 GOOS=linux go build -o cos
-
-  - name: 打包Docker并推送
-    image: plugins/docker
-    when:
-      branch:
-        - develop
-        - master
+    image: pangum/drone
+    pull: always
     settings:
-      repo: storezhang/cos
-      tags:
-        - latest
-      purge: true
-      compress: true
-      mirror: https://docker.mirrors.ustc.edu.cn
-      username: storezhang
+      output: cos
+
+  - name: 推送Docker镜像到中央库
+    image: dronestock/docker
+    pull: always
+    privileged: true
+    volumes:
+      - name: cache
+        path: /var/lib/docker
+    settings:
+      repository: dronestock/cos
+      username: dronestock
       password:
-        from_secret: docker_password
+        from_secret: token_docker
+
 
 volumes:
-  - name: deps
-    temp: { }
+  - name: cache
+    host:
+      path: /var/lib/cache/docker
