@@ -1,10 +1,9 @@
 package main
 
 func (p *plugin) clear() (undo bool, err error) {
-	/*var enable bool
-	if enable, err = strconv.ParseBool(conf.Clear); nil != err || !enable {
+	if undo = !p.Clear; undo {
 		return
-	}*/
+	}
 
 	// 清理存储桶
 	// client.Bucket.Get()
