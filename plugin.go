@@ -16,7 +16,7 @@ type plugin struct {
 	drone.PluginBase
 
 	// 本地上传目录
-	Folder string `default:"${PLUGIN_Folder=${Folder=.}}"`
+	Folder string `default:"${PLUGIN_FOLDER=${FOLDER=.}}"`
 
 	// 授权，类型于用户名
 	SecretId string `default:"${PLUGIN_SECRET_ID=${SECRET_ID}}" validate:"required"`
