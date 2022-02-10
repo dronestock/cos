@@ -25,8 +25,13 @@ func (p *plugin) upload() (undo bool, err error) {
 }
 
 func (p *plugin) uploadFile(path string) (err error) {
+	var folderPath string
+	if folderPath, err = filepath.Abs(p.Folder); nil != err {
+		return
+	}
+
 	var rel string
-	if rel, err = filepath.Rel(p.Folder, path); nil != err {
+	if rel, err = filepath.Rel(folderPath, path); nil != err {
 		return
 	}
 
