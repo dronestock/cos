@@ -19,9 +19,9 @@ type plugin struct {
 	Folder string `default:"${PLUGIN_Folder=${Folder=.}}"`
 
 	// 授权，类型于用户名
-	SecretId string `default:"${PLUGIN_SECRET_ID=${SECRET_ID}}" validate:"required,len=36"`
+	SecretId string `default:"${PLUGIN_SECRET_ID=${SECRET_ID}}" validate:"required"`
 	// 授权，类型于密码
-	SecretKey string `default:"${PLUGIN_SECRET_KEY=${SECRET_KEY}}" validate:"required,len=33"`
+	SecretKey string `default:"${PLUGIN_SECRET_KEY=${SECRET_KEY}}" validate:"required"`
 	// 存储桶地址
 	BaseUrl string `default:"${PLUGIN_BASE_URL=${BASE_URL}}" validate:"required,url"`
 
