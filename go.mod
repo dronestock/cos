@@ -6,10 +6,11 @@ require (
 	github.com/dronestock/drone v0.2.5
 	github.com/storezhang/gfx v0.0.2
 	github.com/storezhang/gox v1.8.4
-	github.com/tencentyun/cos-go-sdk-v5 v0.7.33
+	github.com/tencentyun/cos-go-sdk-v5 v0.7.34
 )
 
 require (
+	github.com/clbanning/mxj v1.8.4 // indirect
 	github.com/drone/envsubst v1.0.3 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
