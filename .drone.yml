@@ -15,30 +15,34 @@ trigger:
 
 steps:
   - name: 拉代码
-    image: dronestock/git
-    pull: always
+    image: ccr.ccs.tencentyun.com/dronestock/git
 
   - name: 编译
-    image: pangum/drone
-    pull: always
+    image: ccr.ccs.tencentyun.com/pangum/drone
     settings:
       output: cos
 
-  - name: 推送Docker镜像到中央库
-    image: dronestock/docker
+  - name: 发布
+    image: ccr.ccs.tencentyun.com/dronestock/docker
     pull: always
     privileged: true
-    when:
-      event:
-        - tag
     volumes:
       - name: cache
         path: /var/lib/docker
+    environment:
+      PASSWORD_DOCKER:
+        from_secret: token_docker
+      PASSWORD_CCR:
+        from_secret: password_tencentyun_ccr
     settings:
       repository: dronestock/cos
-      username: dronestock
-      password:
-        from_secret: token_docker
+      registries:
+        - username: dronestock
+          password: $${PASSWORD_DOCKER}
+        - hostname: ccr.ccs.tencentyun.com
+          username: "160290688"
+          password: $${PASSWORD_CCR}
+          required: true
 
 
 volumes:
