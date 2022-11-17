@@ -12,9 +12,24 @@ Drone持续集成腾讯云对象存储插件，功能
 
 ```yaml
 - name: 上传到腾讯云
-  image: dronestock/cos
-  setttings:
+  image: ccr.ccs.tencentyun.com//dronestock/cos
+  settings:
     secret_id: xxx
     secret_key: xxx
-    base_url: xxx
 ```
+
+更多使用教程，请参考[文档](https://www.dronestock.tech/plugin/cos)
+
+## 交流
+
+![微信群](https://www.dronestock.tech/communication/wxwork.jpg)
+
+## 捐助
+
+![支持宝](https://github.com/storezhang/donate/raw/master/alipay-small.jpg)
+![微信](https://github.com/storezhang/donate/raw/master/weipay-small.jpg)
+
+## 感谢Jetbrains
+
+本项目通过`Jetbrains开源许可IDE`编写源代码，特此感谢
+[![Jetbrains图标](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png)](https://www.jetbrains.com/?from=dronestock/cos)

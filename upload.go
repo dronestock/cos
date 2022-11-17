@@ -1,12 +1,12 @@
 package main
 
 import (
-	`context`
-	`path/filepath`
-	`strings`
+	"context"
+	"path/filepath"
+	"strings"
 
-	`github.com/storezhang/gfx`
-	`github.com/tencentyun/cos-go-sdk-v5`
+	"github.com/goexl/gfx"
+	"github.com/tencentyun/cos-go-sdk-v5"
 )
 
 func (p *plugin) upload() (undo bool, err error) {
