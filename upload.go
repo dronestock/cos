@@ -11,11 +11,14 @@ import (
 )
 
 func (p *plugin) upload() (undo bool, err error) {
+	pf := field.New("folder", p.Folder)
 	if paths, ae := gfx.All(p.Folder); nil != ae {
 		err = ae
-		p.Error("列举目录文件出错", field.New("folder", p.Folder), field.Error(err))
+		p.Error("列举目录文件出错", pf, field.Error(err))
+	} else if 0 == len(paths) {
+		p.Warn("无文件可上传", pf)
 	} else {
-		p.Debug("即将上传文件", field.New("paths", paths))
+		p.Debug("即将上传所有文件", pf, field.New("paths", paths))
 		for _, path := range paths {
 			if err = p.uploadFile(path); nil != err {
 				return
