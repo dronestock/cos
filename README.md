@@ -18,7 +18,7 @@ Drone持续集成腾讯云对象存储插件，功能
     secret_key: xxx
 ```
 
-更多使用教程，请参考[文档](https://www.dronestock.tech/plugin/cos)
+更多使用教程，请参考[文档](https://www.dronestock.tech/plugin/stock/cos)
 
 ## 交流
 
