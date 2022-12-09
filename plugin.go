@@ -70,29 +70,29 @@ func (p *plugin) Setup() (unset bool, err error) {
 
 func (p *plugin) Steps() drone.Steps {
 	return drone.Steps{
-		drone.NewStep(p.clear, drone.Name(`清理存储空间`)),
-		drone.NewStep(p.upload, drone.Name(`上传文件`)),
-		drone.NewStep(p.website, drone.Name(`配置静态网站`)),
+		drone.NewStep(p.clear, drone.Name("清理存储空间")),
+		drone.NewStep(p.upload, drone.Name("上传文件")),
+		drone.NewStep(p.website, drone.Name("配置静态网站")),
 	}
 }
 
-func (p *plugin) Fields() gox.Fields {
-	return []gox.Field{
-		field.String(`folder`, p.Folder),
+func (p *plugin) Fields() gox.Fields[any] {
+	return gox.Fields[any]{
+		field.New("folder", p.Folder),
 
-		field.String(`secret.id`, p.SecretId),
-		field.String(`base.url`, p.BaseUrl),
+		field.New("secret.id", p.SecretId),
+		field.New("base.url", p.BaseUrl),
 
-		field.String(`separator`, p.Separator),
-		field.Bool(`clear`, p.Clear),
-		field.String(`prefix`, p.Prefix),
-		field.String(`suffix`, p.Suffix),
+		field.New("separator", p.Separator),
+		field.New("clear", p.Clear),
+		field.New("prefix", p.Prefix),
+		field.New("suffix", p.Suffix),
 
-		field.String(`website.index`, p.WebsiteIndex),
-		field.String(`website.error`, p.WebsiteError),
+		field.New("website.index", p.WebsiteIndex),
+		field.New("website.error", p.WebsiteError),
 	}
 }
 
 func (p *plugin) websiteEnabled() bool {
-	return `` == strings.TrimSpace(p.WebsiteIndex) && `` == strings.TrimSpace(p.WebsiteError)
+	return "" == strings.TrimSpace(p.WebsiteIndex) && "" == strings.TrimSpace(p.WebsiteError)
 }

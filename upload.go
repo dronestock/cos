@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/goexl/gfx"
+	"github.com/goexl/gox/field"
 	"github.com/tencentyun/cos-go-sdk-v5"
 )
 
@@ -31,17 +32,25 @@ func (p *plugin) uploadFile(path string) (err error) {
 	}
 
 	paths := strings.Split(rel, string(filepath.Separator))
-	if `` != p.Prefix {
+	if "" != p.Prefix {
 		paths = append([]string{p.Prefix}, paths...)
 	}
-	if `` != p.Suffix {
+	if "" != p.Suffix {
 		paths = append(paths, p.Suffix)
 	}
 
 	rel = strings.Join(paths, p.Separator)
-	_, _, err = p.cos.Object.MultiUpload(context.Background(), rel, path, &cos.MultiUploadOptions{
-		CheckPoint: true,
-	})
+	options := new(cos.MultiUploadOptions)
+	options.CheckPoint = true
+	pathField := field.New("path", path)
+	if _, rsp, ue := p.cos.Object.MultiUpload(context.Background(), rel, path, options); nil != ue {
+		err = ue
+		p.Error("上传文件出错", pathField, field.Error(err))
+	} else if 200 != rsp.StatusCode {
+		p.Warn("上传文件失败", pathField)
+	} else {
+		p.Debug("文件上传成功", pathField)
+	}
 
 	return
 }
