@@ -4,7 +4,6 @@ import (
 	"crypto/tls"
 	"net/http"
 	"net/url"
-	"strings"
 
 	"github.com/dronestock/drone"
 	"github.com/goexl/gox"
@@ -34,10 +33,8 @@ type plugin struct {
 	// 路径后缀，所有文件上传都会在这上面加上后缀
 	Suffix string `default:"${SUFFIX}"`
 
-	// 静态网站主页
-	WebsiteIndex string `default:"${WEBSITE_INDEX=index.html}"`
-	// 静态网站错误页
-	WebsiteError string `default:"${WEBSITE_ERROR=error.html}"`
+	// 静态网站
+	Website websiteConfig `default:"${WEBSITE}"`
 
 	cos *cos.Client
 }
@@ -88,11 +85,7 @@ func (p *plugin) Fields() gox.Fields[any] {
 		field.New("prefix", p.Prefix),
 		field.New("suffix", p.Suffix),
 
-		field.New("website.index", p.WebsiteIndex),
-		field.New("website.error", p.WebsiteError),
+		field.New("websiteConfig.index", p.Website.Index),
+		field.New("websiteConfig.error", p.Website.Error),
 	}
-}
-
-func (p *plugin) websiteEnabled() bool {
-	return "" == strings.TrimSpace(p.WebsiteIndex) && "" == strings.TrimSpace(p.WebsiteError)
 }
