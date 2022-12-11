@@ -11,14 +11,15 @@ Drone持续集成腾讯云对象存储插件，功能
 非常简单，只需要在`.drone.yml`里增加配置
 
 ```yaml
-- name: 上传到腾讯云
+steps:
+  - name: 上传到腾讯云
   image: ccr.ccs.tencentyun.com/dronestock/cos
   settings:
     secret_id: xxx
     secret_key: xxx
 ```
 
-更多使用教程，请参考[文档](https://www.dronestock.tech/plugin/stock/cos)
+更多使用教程，请参考[使用文档](https://www.dronestock.tech/plugin/stock/cos)
 
 ## 交流
 
