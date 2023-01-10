@@ -6,7 +6,7 @@ require (
 	github.com/dronestock/drone v0.6.3
 	github.com/goexl/gfx v0.1.7
 	github.com/goexl/gox v0.1.6
-	github.com/tencentyun/cos-go-sdk-v5 v0.7.40
+	github.com/tencentyun/cos-go-sdk-v5 v0.7.41
 )
 
 require (
