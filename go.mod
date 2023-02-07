@@ -3,9 +3,9 @@ module github.com/dronestock/cos
 go 1.19
 
 require (
-	github.com/dronestock/drone v0.8.0
+	github.com/dronestock/drone v0.8.2
 	github.com/goexl/gfx v0.1.7
-	github.com/goexl/gox v0.1.7
+	github.com/goexl/gox v0.1.9
 	github.com/tencentyun/cos-go-sdk-v5 v0.7.41
 )
 
@@ -27,6 +27,7 @@ require (
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
+	github.com/maja42/goval v1.3.1 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/mozillazg/go-httpheader v0.3.1 // indirect
 	github.com/rs/xid v1.4.0 // indirect
