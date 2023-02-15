@@ -3,9 +3,9 @@ module github.com/dronestock/cos
 go 1.19
 
 require (
-	github.com/dronestock/drone v0.8.3
+	github.com/dronestock/drone v0.8.4
 	github.com/goexl/gfx v0.1.7
-	github.com/goexl/gox v0.1.9
+	github.com/goexl/gox v0.2.1
 	github.com/tencentyun/cos-go-sdk-v5 v0.7.41
 )
 
@@ -35,10 +35,10 @@ require (
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/multierr v1.9.0 // indirect
 	go.uber.org/zap v1.24.0 // indirect
-	golang.org/x/crypto v0.5.0 // indirect
-	golang.org/x/net v0.5.0 // indirect
-	golang.org/x/sys v0.4.0 // indirect
-	golang.org/x/text v0.6.0 // indirect
+	golang.org/x/crypto v0.6.0 // indirect
+	golang.org/x/net v0.7.0 // indirect
+	golang.org/x/sys v0.5.0 // indirect
+	golang.org/x/text v0.7.0 // indirect
 )
 
 // replace github.com/storezhang/mengpo => ../mengpo
