@@ -3,7 +3,7 @@ module github.com/dronestock/cos
 go 1.19
 
 require (
-	github.com/dronestock/drone v1.0.0
+	github.com/dronestock/drone v1.0.1
 	github.com/goexl/gfx v0.1.7
 	github.com/goexl/gox v0.3.4
 	github.com/tencentyun/cos-go-sdk-v5 v0.7.41
