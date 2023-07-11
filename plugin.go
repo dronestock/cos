@@ -47,7 +47,7 @@ func (p *plugin) Config() drone.Config {
 	return p
 }
 
-func (p *plugin) Setup() (unset bool, err error) {
+func (p *plugin) Setup() (err error) {
 	var bucketUrl *url.URL
 	if bucketUrl, err = url.Parse(p.BaseUrl); nil != err {
 		panic(err)
@@ -67,9 +67,9 @@ func (p *plugin) Setup() (unset bool, err error) {
 
 func (p *plugin) Steps() drone.Steps {
 	return drone.Steps{
-		drone.NewStep(p.clear, drone.Name("清理存储空间")),
-		drone.NewStep(p.upload, drone.Name("上传文件")),
-		drone.NewStep(p.website, drone.Name("配置静态网站")),
+		drone.NewStep(newClearStep(p)).Name("清理空间").Build(),
+		drone.NewStep(newUploadStep(p)).Name("上传文件").Build(),
+		drone.NewStep(newWebsiteStep(p)).Name("静态网站").Build(),
 	}
 }
 
