@@ -15,6 +15,7 @@ steps:
   - name: 上传到腾讯云
   image: ccr.ccs.tencentyun.com/dronestock/cos
   settings:
+    endpoint: https://html.cos.ap-chengdu.myqcloud.com
     secret:
       id: xxx
       key: xxx
