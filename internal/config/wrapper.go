@@ -6,7 +6,7 @@ type Wrapper struct {
 	// 密钥
 	Secret Secret `default:"${SECRET}" json:"secret,omitempty"`
 	// 存储桶地址
-	Endpoint string `default:"${BASE_URL}" validate:"required,url" json:"endpoint,omitempty"`
+	Endpoint string `default:"${ENDPOINT}" validate:"required,url" json:"endpoint,omitempty"`
 
 	// 分隔符
 	Separator string `default:"${SEPARATOR=/}" json:"separator,omitempty"`

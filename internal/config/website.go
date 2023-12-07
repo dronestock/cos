@@ -6,5 +6,5 @@ type Website struct {
 	// 主页
 	Index string `default:"index.html" json:"index"`
 	// 错误页
-	Error string `default:"error.html" json:"error"`
+	Error string `json:"error"`
 }

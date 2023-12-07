@@ -77,7 +77,11 @@ func (w *Website) put(result *cos.BucketGetWebsiteResult, rsp *cos.Response, fie
 }
 
 func (w *Website) can(result *cos.BucketGetWebsiteResult, fields gox.Fields[any]) (can bool) {
-	if can = w.config.Website.Index != result.Index || w.config.Website.Error != result.Error.Key; can {
+	can = w.config.Website.Index != result.Index
+	if !can && "" != w.config.Website.Error {
+		can = nil != result.Error && w.config.Website.Error != result.Error.Key
+	}
+	if can {
 		w.logger.Debug("静态网站配置和现在的配置不同，需要更新", fields...)
 	} else {
 		w.logger.Debug("静态网站配置和现在的配置相同，不用更新", fields...)

@@ -48,8 +48,8 @@ func (p *Plugin) Setup() (err error) {
 func (p *Plugin) Steps() drone.Steps {
 	return drone.Steps{
 		drone.NewStep(step.NewClear(&p.Wrapper, p.cos)).Name("清理空间").Build(),
-		drone.NewStep(step.NewUpload(&p.Wrapper, p.cos, p.Base)).Name("上传文件").Build(),
-		drone.NewStep(step.NewWebsite(&p.Wrapper, p.cos, p.Base)).Name("静态网站").Build(),
+		drone.NewStep(step.NewUpload(&p.Wrapper, p.cos, p.Logger)).Name("上传文件").Build(),
+		drone.NewStep(step.NewWebsite(&p.Wrapper, p.cos, p.Logger)).Name("静态网站").Build(),
 	}
 }
 
