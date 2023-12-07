@@ -13,12 +13,12 @@ Drone持续集成腾讯云对象存储插件，功能
 ```yaml
 steps:
   - name: 上传到腾讯云
-  image: ccr.ccs.tencentyun.com/dronestock/cos
-  settings:
-    endpoint: https://html.cos.ap-chengdu.myqcloud.com
-    secret:
-      id: xxx
-      key: xxx
+    image: ccr.ccs.tencentyun.com/dronestock/cos
+    settings:
+      endpoint: https://html.cos.ap-chengdu.myqcloud.com
+      secret:
+        id: xxx
+        key: xxx
 ```
 
 更多使用教程，请参考[使用文档](https://www.dronestock.tech/plugin/stock/cos)
