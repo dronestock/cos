@@ -15,8 +15,9 @@ steps:
   - name: 上传到腾讯云
   image: ccr.ccs.tencentyun.com/dronestock/cos
   settings:
-    secret_id: xxx
-    secret_key: xxx
+    secret:
+      id: xxx
+      key: xxx
 ```
 
 更多使用教程，请参考[使用文档](https://www.dronestock.tech/plugin/stock/cos)
