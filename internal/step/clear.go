@@ -23,6 +23,6 @@ func (s *Clear) Runnable() bool {
 	return true
 }
 
-func (s *Clear) Run(_ context.Context) (err error) {
+func (s *Clear) Run(_ *context.Context) (err error) {
 	return
 }

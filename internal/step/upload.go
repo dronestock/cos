@@ -36,7 +36,7 @@ func (u *Upload) Runnable() (runnable bool) {
 	return
 }
 
-func (u *Upload) Run(_ context.Context) (err error) {
+func (u *Upload) Run(_ *context.Context) (err error) {
 	for _, path := range u.paths {
 		if err = u.uploadFile(path); nil != err {
 			return

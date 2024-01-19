@@ -29,7 +29,7 @@ func (w *Website) Runnable() bool {
 	return *w.config.Website.Enabled
 }
 
-func (w *Website) Run(_ context.Context) (err error) {
+func (w *Website) Run(_ *context.Context) (err error) {
 	fields := gox.Fields[any]{
 		field.New("website.index", w.config.Website.Index),
 		field.New("website.error", w.config.Website.Error),
