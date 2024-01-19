@@ -4,18 +4,22 @@ import (
 	"context"
 
 	"github.com/dronestock/cos/internal/config"
+	"github.com/goexl/gox/field"
+	"github.com/goexl/log"
 	cdn "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/cdn/v20180606"
 )
 
 type Refresh struct {
 	config *config.Refresh
 	cdn    *cdn.Client
+	logger log.Logger
 }
 
-func NewRefresh(config *config.Refresh, cdn *cdn.Client) *Refresh {
+func NewRefresh(config *config.Refresh, cdn *cdn.Client, logger log.Logger) *Refresh {
 	return &Refresh{
 		config: config,
 		cdn:    cdn,
+		logger: logger,
 	}
 }
 
@@ -37,14 +41,15 @@ func (r *Refresh) path(ctx *context.Context) (err error) {
 		paths = append(paths, &r.config.Path)
 	}
 	for _, path := range r.config.Paths {
-		paths = append(paths, &path)
+		cloned := path
+		paths = append(paths, &cloned)
 	}
 
 	req := cdn.NewPurgePathCacheRequest()
 	req.Paths = paths
 	req.FlushType = &r.config.Type
 	if _, err = r.cdn.PurgePathCacheWithContext(*ctx, req); nil != err {
-		// TODO 记日志
+		r.logger.Warn("刷新预热目录出错", field.New("paths", paths), field.Error(err))
 	}
 
 	return
