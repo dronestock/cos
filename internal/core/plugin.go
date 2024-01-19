@@ -19,8 +19,7 @@ import (
 type Plugin struct {
 	drone.Base
 	config.Wrapper
-
-	refresh config.Refresh `default:"${REFRESH}"`
+	config.Refresh `default:"${REFRESH}"`
 
 	cos *cos.Client
 	cdn *cdn.Client
@@ -58,7 +57,7 @@ func (p *Plugin) Steps() drone.Steps {
 		drone.NewStep(step.NewClear(&p.Wrapper, p.cos)).Name("清理空间").Build(),
 		drone.NewStep(step.NewUpload(&p.Wrapper, p.cos, p.Logger)).Name("上传文件").Build(),
 		drone.NewStep(step.NewWebsite(&p.Wrapper, p.cos, p.Logger)).Name("静态网站").Build(),
-		drone.NewStep(step.NewRefresh(&p.refresh, p.cdn)).Name("刷新预热").Build(),
+		drone.NewStep(step.NewRefresh(&p.Refresh, p.cdn)).Name("刷新预热").Build(),
 	}
 }
 
@@ -79,5 +78,5 @@ func (p *Plugin) setupCdn() (client *cdn.Client, err error) {
 	credential := common.NewCredential(p.Secret.Id, p.Secret.Key)
 	_profile := profile.NewClientProfile()
 
-	return cdn.NewClient(credential, p.refresh.Regin, _profile)
+	return cdn.NewClient(credential, p.Refresh.Regin, _profile)
 }
