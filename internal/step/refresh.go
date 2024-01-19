@@ -20,7 +20,7 @@ func NewRefresh(config *config.Refresh, cdn *cdn.Client) *Refresh {
 }
 
 func (r *Refresh) Runnable() bool {
-	return "" != r.config.Url || 0 != len(r.config.Urls)
+	return "" != r.config.Url || 0 != len(r.config.Urls) || "" != r.config.Path || 0 != len(r.config.Paths)
 }
 
 func (r *Refresh) Run(ctx *context.Context) (err error) {
@@ -39,10 +39,11 @@ func (r *Refresh) path(ctx *context.Context) (err error) {
 	for _, path := range r.config.Paths {
 		paths = append(paths, &path)
 	}
-	ppr := new(cdn.PurgePathCacheRequest)
-	ppr.Paths = paths
-	ppr.FlushType = &r.config.Type
-	if _, err = r.cdn.PurgePathCacheWithContext(*ctx, ppr); nil != err {
+
+	req := cdn.NewPurgePathCacheRequest()
+	req.Paths = paths
+	req.FlushType = &r.config.Type
+	if _, err = r.cdn.PurgePathCacheWithContext(*ctx, req); nil != err {
 		// TODO 记日志
 	}
 

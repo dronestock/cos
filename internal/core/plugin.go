@@ -34,19 +34,13 @@ func (p *Plugin) Config() drone.Config {
 }
 
 func (p *Plugin) Setup() (err error) {
-	if endpoint, pe := url.Parse(p.Endpoint); nil != err {
-		err = pe
-	} else if cdnClient, cde := p.setupCdn(); nil != cde {
-		p.cdn = cdnClient
+	if cdnClient, cde := p.setupCdn(); nil != cde {
+		err = cde
+	} else if cosClient, coe := p.setupCos(); nil != coe {
+		err = coe
 	} else {
-		p.cos = cos.NewClient(&cos.BaseURL{BucketURL: endpoint}, &http.Client{
-			Transport: &cos.AuthorizationTransport{
-				SecretID:  p.Secret.Id,
-				SecretKey: p.Secret.Key,
-				// nolint:gosec
-				Transport: &http.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}},
-			},
-		})
+		p.cdn = cdnClient
+		p.cos = cosClient
 	}
 
 	return
@@ -54,9 +48,9 @@ func (p *Plugin) Setup() (err error) {
 
 func (p *Plugin) Steps() drone.Steps {
 	return drone.Steps{
-		drone.NewStep(step.NewClear(&p.Wrapper, p.cos)).Name("清理空间").Build(),
+		/*Idrone.NewStep(step.NewClear(&p.Wrapper, p.cos)).Name("清理空间").Build(),
 		drone.NewStep(step.NewUpload(&p.Wrapper, p.cos, p.Logger)).Name("上传文件").Build(),
-		drone.NewStep(step.NewWebsite(&p.Wrapper, p.cos, p.Logger)).Name("静态网站").Build(),
+		drone.NewStep(step.NewWebsite(&p.Wrapper, p.cos, p.Logger)).Name("静态网站").Build(),*/
 		drone.NewStep(step.NewRefresh(&p.Refresh, p.cdn)).Name("刷新预热").Build(),
 	}
 }
@@ -79,4 +73,22 @@ func (p *Plugin) setupCdn() (client *cdn.Client, err error) {
 	_profile := profile.NewClientProfile()
 
 	return cdn.NewClient(credential, p.Refresh.Regin, _profile)
+}
+
+func (p *Plugin) setupCos() (client *cos.Client, err error) {
+	if endpoint, pe := url.Parse(p.Endpoint); nil != err {
+		err = pe
+	} else {
+		transport := &cos.AuthorizationTransport{
+			SecretID:  p.Secret.Id,
+			SecretKey: p.Secret.Key,
+			// nolint:gosec
+			Transport: &http.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}},
+		}
+		client = cos.NewClient(&cos.BaseURL{BucketURL: endpoint}, &http.Client{
+			Transport: transport,
+		})
+	}
+
+	return
 }
