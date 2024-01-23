@@ -3,11 +3,11 @@ module github.com/dronestock/cos
 go 1.21
 
 require (
-	github.com/dronestock/drone v1.1.3
+	github.com/dronestock/drone v1.1.5
 	github.com/goexl/gfx v0.1.7
 	github.com/goexl/gox v0.3.8
 	github.com/goexl/log v0.0.7
-	github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/cdn v1.0.846
+	github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/cdn v1.0.847
 	github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common v1.0.847
 	github.com/tencentyun/cos-go-sdk-v5 v0.7.45
 )
