@@ -1,31 +1,27 @@
-package core
+package internal
 
 import (
 	"crypto/tls"
 	"net/http"
 	"net/url"
 
-	"github.com/dronestock/cos/internal/config"
-	"github.com/dronestock/cos/internal/step"
+	"github.com/dronestock/cos/internal/internal/config"
+	"github.com/dronestock/cos/internal/internal/step"
 	"github.com/dronestock/drone"
 	"github.com/goexl/gox"
 	"github.com/goexl/gox/field"
-	cdn "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/cdn/v20180606"
-	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
 	"github.com/tencentyun/cos-go-sdk-v5"
 )
 
 type Plugin struct {
 	drone.Base
 	config.Wrapper
-	config.Refresh `default:"${REFRESH}"`
+	config.Secret `default:"${SECRET}" json:"secret,omitempty"`
 
 	cos *cos.Client
-	cdn *cdn.Client
 }
 
-func NewPlugin() drone.Plugin {
+func New() drone.Plugin {
 	return new(Plugin)
 }
 
@@ -34,13 +30,10 @@ func (p *Plugin) Config() drone.Config {
 }
 
 func (p *Plugin) Setup() (err error) {
-	if cdnClient, cde := p.setupCdn(); nil != cde {
-		err = cde
-	} else if cosClient, coe := p.setupCos(); nil != coe {
+	if client, coe := p.setupCos(); nil != coe {
 		err = coe
 	} else {
-		p.cdn = cdnClient
-		p.cos = cosClient
+		p.cos = client
 	}
 
 	return
@@ -51,7 +44,6 @@ func (p *Plugin) Steps() drone.Steps {
 		drone.NewStep(step.NewClear(&p.Wrapper, p.cos)).Name("清理空间").Build(),
 		drone.NewStep(step.NewUpload(&p.Wrapper, p.cos, p.Logger)).Name("上传文件").Build(),
 		drone.NewStep(step.NewWebsite(&p.Wrapper, p.cos, p.Logger)).Name("静态网站").Build(),
-		drone.NewStep(step.NewRefresh(&p.Refresh, p.cdn, p.Logger)).Name("刷新预热").Build(),
 	}
 }
 
@@ -66,13 +58,6 @@ func (p *Plugin) Fields() gox.Fields[any] {
 		field.New("suffix", p.Suffix),
 		field.New("website", p.Website),
 	}
-}
-
-func (p *Plugin) setupCdn() (client *cdn.Client, err error) {
-	credential := common.NewCredential(p.Secret.Id, p.Secret.Key)
-	_profile := profile.NewClientProfile()
-
-	return cdn.NewClient(credential, p.Refresh.Regin, _profile)
 }
 
 func (p *Plugin) setupCos() (client *cos.Client, err error) {

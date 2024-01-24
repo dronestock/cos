@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/dronestock/cos/internal/config"
+	"github.com/dronestock/cos/internal/internal/config"
 	"github.com/goexl/gox"
 	"github.com/goexl/gox/field"
 	"github.com/goexl/log"

@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/dronestock/cos/internal/config"
+	"github.com/dronestock/cos/internal/internal/config"
 	"github.com/goexl/gfx"
 	"github.com/goexl/gox/field"
 	"github.com/goexl/log"

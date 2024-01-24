@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/dronestock/cos/internal/core"
+	"github.com/dronestock/cos/internal"
 	"github.com/dronestock/drone"
 )
 
 func main() {
-	drone.New(core.NewPlugin).Boot()
+	drone.New(internal.New).Boot()
 }

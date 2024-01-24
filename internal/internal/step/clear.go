@@ -3,7 +3,7 @@ package step
 import (
 	"context"
 
-	"github.com/dronestock/cos/internal/config"
+	"github.com/dronestock/cos/internal/internal/config"
 	"github.com/tencentyun/cos-go-sdk-v5"
 )
 
