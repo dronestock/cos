@@ -7,7 +7,7 @@ require (
 	github.com/goexl/gfx v0.1.7
 	github.com/goexl/gox v0.3.8
 	github.com/goexl/log v0.0.7
-	github.com/tencentyun/cos-go-sdk-v5 v0.7.45
+	github.com/tencentyun/cos-go-sdk-v5 v0.7.46
 )
 
 require (
