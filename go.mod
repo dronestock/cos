@@ -3,7 +3,7 @@ module github.com/dronestock/cos
 go 1.21
 
 require (
-	github.com/dronestock/drone v1.1.6
+	github.com/dronestock/drone v1.1.8
 	github.com/goexl/gfx v0.1.7
 	github.com/goexl/gox v0.3.8
 	github.com/goexl/log v0.0.7
@@ -13,7 +13,7 @@ require (
 require (
 	github.com/clbanning/mxj v1.8.4 // indirect
 	github.com/drone/envsubst v1.0.3 // indirect
-	github.com/expr-lang/expr v1.15.8 // indirect
+	github.com/expr-lang/expr v1.16.0 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
@@ -25,6 +25,7 @@ require (
 	github.com/goexl/exception v0.0.1 // indirect
 	github.com/goexl/gex v0.3.2 // indirect
 	github.com/goexl/guc v0.0.7 // indirect
+	github.com/goexl/http v0.1.8 // indirect
 	github.com/goexl/mengpo v0.2.5 // indirect
 	github.com/goexl/xiren v0.0.6 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
