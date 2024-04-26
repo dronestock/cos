@@ -8,13 +8,13 @@ import (
 )
 
 type Clear struct {
-	config *config.Wrapper
+	source *config.Source
 	cos    *cos.Client
 }
 
-func NewClear(config *config.Wrapper, cos *cos.Client) *Clear {
+func NewClear(source *config.Source, cos *cos.Client) *Clear {
 	return &Clear{
-		config: config,
+		source: source,
 		cos:    cos,
 	}
 }

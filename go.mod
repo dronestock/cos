@@ -1,7 +1,6 @@
 module github.com/dronestock/cos
 
-go 1.21
-toolchain go1.22.2
+go 1.22
 
 require (
 	github.com/dronestock/drone v1.2.1

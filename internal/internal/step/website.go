@@ -12,12 +12,12 @@ import (
 )
 
 type Website struct {
-	config *config.Wrapper
+	config *config.Cos
 	cos    *cos.Client
 	logger log.Logger
 }
 
-func NewWebsite(config *config.Wrapper, cos *cos.Client, logger log.Logger) *Website {
+func NewWebsite(config *config.Cos, cos *cos.Client, logger log.Logger) *Website {
 	return &Website{
 		config: config,
 		cos:    cos,

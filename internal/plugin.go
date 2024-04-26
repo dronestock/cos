@@ -13,23 +13,27 @@ import (
 	"github.com/tencentyun/cos-go-sdk-v5"
 )
 
-type Plugin struct {
+type plugin struct {
 	drone.Base
-	config.Wrapper
-	config.Secret `default:"${SECRET}" json:"secret,omitempty"`
+
+	Source config.Source `default:"SOURCE" json:"source,omitempty"`
+	// 本身配置
+	Cos config.Cos `default:"COS" json:"cos,omitempty"`
+	// 密钥配置
+	Secret config.Secret `default:"${SECRET}" json:"secret,omitempty"`
 
 	cos *cos.Client
 }
 
 func New() drone.Plugin {
-	return new(Plugin)
+	return new(plugin)
 }
 
-func (p *Plugin) Config() drone.Config {
+func (p *plugin) Config() drone.Config {
 	return p
 }
 
-func (p *Plugin) Setup() (err error) {
+func (p *plugin) Setup() (err error) {
 	if client, coe := p.setupCos(); nil != coe {
 		err = coe
 	} else {
@@ -39,29 +43,24 @@ func (p *Plugin) Setup() (err error) {
 	return
 }
 
-func (p *Plugin) Steps() drone.Steps {
+func (p *plugin) Steps() drone.Steps {
 	return drone.Steps{
-		drone.NewStep(step.NewClear(&p.Wrapper, p.cos)).Name("清理空间").Build(),
-		drone.NewStep(step.NewUpload(&p.Wrapper, p.cos, p.Logger)).Name("上传文件").Build(),
-		drone.NewStep(step.NewWebsite(&p.Wrapper, p.cos, p.Logger)).Name("静态网站").Build(),
+		drone.NewStep(step.NewClear(&p.Source, p.cos)).Name("清理空间").Build(),
+		drone.NewStep(step.NewUpload(&p.Source, &p.Cos, p.cos, p.Logger)).Name("上传文件").Build(),
+		drone.NewStep(step.NewWebsite(&p.Cos, p.cos, p.Logger)).Name("静态网站").Build(),
 	}
 }
 
-func (p *Plugin) Fields() gox.Fields[any] {
+func (p *plugin) Fields() gox.Fields[any] {
 	return gox.Fields[any]{
-		field.New("folder", p.Folder),
+		field.New("source", p.Source),
 		field.New("secret", p.Secret),
-		field.New("endpoint", p.Endpoint),
-		field.New("separator", p.Separator),
-		field.New("clear", p.Clear),
-		field.New("prefix", p.Prefix),
-		field.New("suffix", p.Suffix),
-		field.New("website", p.Website),
+		field.New("cos", p.Cos),
 	}
 }
 
-func (p *Plugin) setupCos() (client *cos.Client, err error) {
-	if endpoint, pe := url.Parse(p.Endpoint); nil != err {
+func (p *plugin) setupCos() (client *cos.Client, err error) {
+	if endpoint, pe := url.Parse(p.Cos.Endpoint); nil != err {
 		err = pe
 	} else {
 		transport := &cos.AuthorizationTransport{

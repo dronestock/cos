@@ -1,8 +1,6 @@
 package config
 
-type Wrapper struct {
-	// 本地上传目录
-	Folder string `default:"${FOLDER=.}" json:"folder,omitempty"`
+type Cos struct {
 	// 存储桶地址
 	Endpoint string `default:"${ENDPOINT}" validate:"required,url" json:"endpoint,omitempty"`
 

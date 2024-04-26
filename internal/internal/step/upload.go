@@ -13,14 +13,16 @@ import (
 )
 
 type Upload struct {
-	config *config.Wrapper
+	source *config.Source
+	config *config.Cos
 	paths  []string
 	cos    *cos.Client
 	logger log.Logger
 }
 
-func NewUpload(config *config.Wrapper, cos *cos.Client, logger log.Logger) *Upload {
+func NewUpload(source *config.Source, config *config.Cos, cos *cos.Client, logger log.Logger) *Upload {
 	return &Upload{
+		source: source,
 		config: config,
 		cos:    cos,
 		logger: logger,
@@ -28,7 +30,7 @@ func NewUpload(config *config.Wrapper, cos *cos.Client, logger log.Logger) *Uplo
 }
 
 func (u *Upload) Runnable() (runnable bool) {
-	if paths, ae := gfx.All(u.config.Folder); nil == ae || 0 != len(paths) {
+	if paths, ae := gfx.All(u.source.Folder); nil == ae || 0 != len(paths) {
 		runnable = true
 		u.paths = paths
 	}
@@ -49,7 +51,7 @@ func (u *Upload) Run(_ *context.Context) (err error) {
 func (u *Upload) uploadFile(path string) (err error) {
 	rel := ""
 	pf := field.New("path", path)
-	if _rel, re := filepath.Rel(u.config.Folder, path); nil != re {
+	if _rel, re := filepath.Rel(u.source.Folder, path); nil != re {
 		err = re
 		u.logger.Error("获取文件相对路径出错", pf, field.Error(err))
 	} else {
