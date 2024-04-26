@@ -4,7 +4,7 @@ go 1.21
 toolchain go1.22.2
 
 require (
-	github.com/dronestock/drone v1.2.0
+	github.com/dronestock/drone v1.2.1
 	github.com/goexl/gfx v0.1.7
 	github.com/goexl/gox v0.4.4
 	github.com/goexl/log v0.0.7
