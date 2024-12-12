@@ -1,10 +1,11 @@
 module github.com/dronestock/cos
 
 go 1.22
+toolchain go1.23.4
 
 require (
 	github.com/dronestock/drone v1.2.5
-	github.com/goexl/gfx v0.1.7
+	github.com/goexl/gfx v0.2.5
 	github.com/goexl/gox v0.5.2
 	github.com/goexl/log v0.0.7
 	github.com/tencentyun/cos-go-sdk-v5 v0.7.54
@@ -14,7 +15,7 @@ require (
 	github.com/clbanning/mxj v1.8.4 // indirect
 	github.com/drone/envsubst v1.0.3 // indirect
 	github.com/expr-lang/expr v1.16.9 // indirect
-	github.com/fsnotify/fsnotify v1.7.0 // indirect
+	github.com/fsnotify/fsnotify v1.8.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.4 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
