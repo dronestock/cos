@@ -1,13 +1,14 @@
 module github.com/dronestock/cos
 
-go 1.22
+go 1.24
+
 toolchain go1.24.1
 
 require (
 	github.com/dronestock/drone v1.2.6
 	github.com/goexl/gfx v0.2.8
 	github.com/goexl/gox v1.9.2
-	github.com/goexl/log v0.0.9
+	github.com/goexl/log v0.1.0
 	github.com/tencentyun/cos-go-sdk-v5 v0.7.65
 )
 
